@@ -1,0 +1,13 @@
+package ModelosySimulaciones.demo;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class MaquinaEnigmaApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(MaquinaEnigmaApplication.class, args);
+	}
+
+}
