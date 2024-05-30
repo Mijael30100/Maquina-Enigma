@@ -17,12 +17,20 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Setup Pages
-        uses: actions/configure-pages@v1
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '14'
+
+      - name: Build
+        run: npm install
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
-          path: 'src/main/resources/static'  # Ruta a tu carpeta de archivos estáticos
+          path: 'src/main/resources/static'  # Asegúrate de que esta ruta es correcta
+
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v1
