@@ -39,11 +39,6 @@ public class EnigmaController {
         return "encrypt";
     }
 
-    @GetMapping("/decrypt")
-    public String showDecryptPage() {
-        return "decrypt";
-    }
-
     @PostMapping("/encrypt")
     @ResponseBody
     public String encrypt(@RequestBody String plaintext) {

@@ -191,7 +191,7 @@
             }
         });
     </script>
-       <button id="decrypt-btn">Decrypt</button>
+       <button id="decrypt-btn">Encrypt/Decrypt</button>
 
        <script>
            document.querySelectorAll('.key').forEach(key => {
@@ -222,8 +222,7 @@
            });
    
            document.getElementById('decrypt-btn').addEventListener('click', function() {
-               // Your decryption logic here
-               const encryptedChar = prompt('Enter the character to decrypt:');
+               const encryptedChar = prompt('Enter the character to encrypt/decrypt:');
    
                fetch('/enigma/decrypt', {
                    method: 'POST',
