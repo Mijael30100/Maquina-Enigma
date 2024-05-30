@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-@RequestMapping("/enigma")
+@RequestMapping("/index")
 public class EnigmaController {
 
     @Autowired
@@ -21,7 +21,7 @@ public class EnigmaController {
 
     @GetMapping
     public String home() {
-        return "home";
+        return "index";
     }
 
     @PostMapping("/set-rotors")
