@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enigma Machine - Home</title>
+    <style>
+        body {
+            text-align: center;
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            margin-top: 50px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input {
+            padding: 10px;
+            font-size: 16px;
+            width: 50px;
+            text-align: center;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Configure Your Enigma Machine</h1>
+        <form id="rotor-config-form">
+            <div class="form-group">
+                <label for="rotor1">First letter of Rotor 1</label>
+                <input type="text" id="rotor1" name="rotor1" maxlength="1" required>
+            </div>
+            <div class="form-group">
+                <label for="rotor2">First letter of Rotor 2</label>
+                <input type="text" id="rotor2" name="rotor2" maxlength="1" required>
+            </div>
+            <div class="form-group">
+                <label for="rotor3">First letter of Rotor 3</label>
+                <input type="text" id="rotor3" name="rotor3" maxlength="1" required>
+            </div>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('rotor-config-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const rotor1 = document.getElementById('rotor1').value.toUpperCase();
+            const rotor2 = document.getElementById('rotor2').value.toUpperCase();
+            const rotor3 = document.getElementById('rotor3').value.toUpperCase();
+
+            fetch('/enigma/set-rotors', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: new URLSearchParams({
+                    rotor1Letter: rotor1,
+                    rotor2Letter: rotor2,
+                    rotor3Letter: rotor3
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Rotors set successfully!');
+                    // Redirect to the encrypt page
+                    window.location.href = "/enigma/encrypt";
+                } else {
+                    alert('Failed to set rotors.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        });
+    </script>
+</body>
+</html>
