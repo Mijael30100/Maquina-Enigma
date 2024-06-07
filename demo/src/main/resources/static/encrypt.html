@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enigma Machine Simulator - Encrypt</title>
+    <style>
+        body {
+            text-align: center;
+            background-color: #f0f0f0;
+        }
+        .enigma-machine {
+            position: relative;
+            width: 600px;
+            height: 800px;
+            margin: auto;
+            background: url('/Enigmafront.jpg') no-repeat;
+            background-size: cover;
+        }
+        .key {
+            color: white;
+            position: absolute;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 18px;
+            font-weight: bold;
+            background: transparent;
+        }
+        .lamp {
+            position: absolute;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            background: transparent;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            font-weight: bold;
+            color: white; /* Color de las letras en las lámparas */
+        }
+        .lamp.active {
+            background: yellow;
+        }
+        /* Positioning keys and lamps */
+        #key-Q { top: 540px; left: 101px; }
+        #lamp-Q { top: 395px; left: 102px; }
+        #key-W { top: 540px; left: 148px; }
+        #lamp-W { top: 396px; left: 149px; }
+        #key-E { top: 540px; left: 196px; }
+        #lamp-E { top: 395px; left: 197px; }
+        #key-R { top: 540px; left: 243px; }
+        #lamp-R { top: 395px; left: 243px; }
+        #key-T { top: 540px; left: 291px; }
+        #lamp-T { top: 396px; left: 289px; }
+        #key-Z { top: 540px; left: 338px; }
+        #lamp-Z { top: 395px; left: 337px; }
+        #key-U { top: 540px; left: 386px; }
+        #lamp-U { top: 396px; left: 384px; }
+        #key-I { top: 540px; left: 433px; }
+        #lamp-I { top: 395px; left: 430px; }
+        #key-O { top: 540px; left: 481px; }
+        #lamp-O { top: 395px; left: 477px; }
+
+        #key-A { top: 583px; left: 117px; }
+        #lamp-A { top: 438px; left: 118px; }
+        #key-S { top: 583px; left: 164px; }
+        #lamp-S { top: 438px; left: 165px; }
+        #key-D { top: 583px; left: 212px; }
+        #lamp-D { top: 438px; left: 212px; }
+        #key-F { top: 583px; left: 259px; }
+        #lamp-F { top: 438px; left: 259px; }
+        #key-G { top: 583px; left: 307px; }
+        #lamp-G { top: 438px; left: 306px; }
+        #key-H { top: 583px; left: 354px; }
+        #lamp-H { top: 438px; left: 352px; }
+        #key-J { top: 583px; left: 402px; }
+        #lamp-J { top: 438px; left: 400px; }
+        #key-K { top: 583px; left: 449px; }
+        #lamp-K { top: 438px; left: 446px; }
+
+        #key-P { top: 624px; left: 88px; }
+        #lamp-P { top: 481px; left: 87px; }
+        #key-Y { top: 624px; left: 135px; }
+        #lamp-Y { top: 481px; left: 134px; }
+        #key-X { top: 624px; left: 182px; }
+        #lamp-X { top: 481px; left: 181px; }
+        #key-C { top: 624px; left: 229px; }
+        #lamp-C { top: 481px; left: 228px; }
+        #key-V { top: 624px; left: 276px; }
+        #lamp-V { top: 481px; left: 275px; }
+        #key-B { top: 624px; left: 322px; }
+        #lamp-B { top: 481px; left: 322px; }
+        #key-N { top: 624px; left: 369px; }
+        #lamp-N { top: 481px; left: 369px; }
+        #key-M { top: 624px; left: 416px; }
+        #lamp-M { top: 481px; left: 415px; }
+        #key-L { top: 624px; left: 463px; }
+        #lamp-L { top: 481px; left: 463px; }
+    </style>
+</head>
+<body>
+    <div class="enigma-machine">
+        <div id="key-Q" class="key">Q</div>
+        <div id="lamp-Q" class="lamp">Q</div>
+        <div id="key-W" class="key">W</div>
+        <div id="lamp-W" class="lamp">W</div>
+        <div id="key-E" class="key">E</div>
+        <div id="lamp-E" class="lamp">E</div>
+        <div id="key-R" class="key">R</div>
+        <div id="lamp-R" class="lamp">R</div>
+        <div id="key-T" class="key">T</div>
+        <div id="lamp-T" class="lamp">T</div>
+        <div id="key-Z" class="key">Z</div>
+        <div id="lamp-Z" class="lamp">Z</div>
+        <div id="key-U" class="key">U</div>
+        <div id="lamp-U" class="lamp">U</div>
+        <div id="key-I" class="key">I</div>
+        <div id="lamp-I" class="lamp">I</div>
+        <div id="key-O" class="key">O</div>
+        <div id="lamp-O" class="lamp">O</div>
+
+        <div id="key-A" class="key">A</div>
+        <div id="lamp-A" class="lamp">A</div>
+        <div id="key-S" class="key">S</div>
+        <div id="lamp-S" class="lamp">S</div>
+        <div id="key-D" class="key">D</div>
+        <div id="lamp-D" class="lamp">D</div>
+        <div id="key-F" class="key">F</div>
+        <div id="lamp-F" class="lamp">F</div>
+        <div id="key-G" class="key">G</div>
+        <div id="lamp-G" class="lamp">G</div>
+        <div id="key-H" class="key">H</div>
+        <div id="lamp-H" class="lamp">H</div>
+        <div id="key-J" class="key">J</div>
+        <div id="lamp-J" class="lamp">J</div>
+        <div id="key-K" class="key">K</div>
+        <div id="lamp-K" class="lamp">K</div>
+
+        <div id="key-P" class="key">P</div>
+        <div id="lamp-P" class="lamp">P</div>
+        <div id="key-Y" class="key">Y</div>
+        <div id="lamp-Y" class="lamp">Y</div>
+        <div id="key-X" class="key">X</div>
+        <div id="lamp-X" class="lamp">X</div>
+        <div id="key-C" class="key">C</div>
+        <div id="lamp-C" class="lamp">C</div>
+        <div id="key-V" class="key">V</div>
+        <div id="lamp-V" class="lamp">V</div>
+        <div id="key-B" class="key">B</div>
+        <div id="lamp-B" class="lamp">B</div>
+        <div id="key-N" class="key">N</div>
+        <div id="lamp-N" class="lamp">N</div>
+        <div id="key-M" class="key">M</div>
+        <div id="lamp-M" class="lamp">M</div>
+        <div id="key-L" class="key">L</div>
+        <div id="lamp-L" class="lamp">L</div>
+    </div>
+    <script>
+        document.addEventListener('keydown', function(event) {
+            const key = event.key.toUpperCase();
+            const keyElement = document.getElementById('key-' + key);
+            
+            if (keyElement) {
+                keyElement.style.backgroundColor = 'grey';
+
+                fetch('/enigma/encrypt', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'text/plain'
+                    },
+                    body: key
+                })
+                .then(response => response.text())
+                .then(data => {
+                    const lampElement = document.getElementById('lamp-' + data.toUpperCase());
+                    if (lampElement) {
+                        lampElement.classList.add('active');
+                    }
+                    setTimeout(() => {
+                        keyElement.style.backgroundColor = 'transparent';
+                        if (lampElement) {
+                            lampElement.classList.remove('active');
+                        }
+                    }, 500);
+                });
+            }
+        });
+    </script>
+       <button id="decrypt-btn">Encrypt/Decrypt</button>
+
+       <script>
+           document.querySelectorAll('.key').forEach(key => {
+               key.addEventListener('click', function() {
+                   const char = this.textContent;
+   
+                   fetch('/enigma/encrypt', {
+                       method: 'POST',
+                       headers: {
+                           'Content-Type': 'text/plain'
+                       },
+                       body: char
+                   })
+                   .then(response => response.text())
+                   .then(encryptedChar => {
+                       document.querySelectorAll('.lamp').forEach(lamp => {
+                           lamp.classList.remove('active');
+                       });
+                       const lamp = document.getElementById(`lamp-${encryptedChar}`);
+                       if (lamp) {
+                           lamp.classList.add('active');
+                       }
+                   })
+                   .catch(error => {
+                       console.error('Error:', error);
+                   });
+               });
+           });
+   
+           document.getElementById('decrypt-btn').addEventListener('click', function() {
+               const encryptedChar = prompt('Enter the character to encrypt/decrypt:');
+   
+               fetch('/enigma/decrypt', {
+                   method: 'POST',
+                   headers: {
+                       'Content-Type': 'text/plain'
+                   },
+                   body: encryptedChar
+               })
+               .then(response => response.text())
+               .then(decryptedChar => {
+                   alert(`Decrypted character: ${decryptedChar}`);
+               })
+               .catch(error => {
+                   console.error('Error:', error);
+               });
+           });
+       </script>
+</body>
+</html>
+
